@@ -16,14 +16,17 @@ func helloWorld(c *fiber.Ctx) error {
 
 func initDatabase() {
 	var err error
-	dsn := "host=localhost user=gorm password=gorm dbname=goTodo port=54321 "
+	//dsn := "host=localhost user=postgres password=postgres dbname=goTodo port=5432 "
+	// database.DBConn, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dsn := "host=localhost user=gorm password=gorm dbname=gorm port=5432 sslmode=disable"
 	database.DBConn, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("Failed to connect")
 	}
-	fmt.Println("Database comnected")
+	fmt.Println("Database connected")
 	database.DBConn.AutoMigrate(&models.Todo{})
 	fmt.Println("Migrated DB")
+
 }
 
 func setupRoutes(app *fiber.App) {
