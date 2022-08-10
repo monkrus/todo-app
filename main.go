@@ -16,10 +16,9 @@ func helloWorld(c *fiber.Ctx) error {
 
 func initDatabase() {
 	var err error
-	//dsn := "host=localhost user=postgres password=postgres dbname=goTodo port=5432 "
-	// database.DBConn, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	dsn := "host=localhost user=gorm password=gorm dbname=gorm port=5432 sslmode=disable"
+	dsn := "host=localhost user=postgres password=admin dbname=postgres port=5432 "
 	database.DBConn, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
 	if err != nil {
 		panic("Failed to connect")
 	}
