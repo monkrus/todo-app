@@ -32,6 +32,7 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/todos", models.GetTodos)
 	app.Get("/todos/:id", models.CreateTodoById)
 	app.Post("/todos", models.CreateTodo)
+	app.Put("/todos/:id", models.UpdateTodo)
 }
 func main() {
 	app := fiber.New()
