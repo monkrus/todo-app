@@ -50,6 +50,10 @@ func UpdateTodo(c *fiber.Ctx) error {
 }
 
 func CreateTodo(c *fiber.Ctx) error {
+	type CreatedTodo struct {
+		Title     string `json:"title"`
+		Completed bool   `json:"completed"`
+	}
 	db := database.DBConn
 	todo := new(Todo)
 	err := c.BodyParser(todo)
@@ -57,11 +61,12 @@ func CreateTodo(c *fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Check input", "data": err})
 	}
 	err = db.Create(&todo).Error
+	var updatedTodo CreatedTodo
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Could not create todo", "data": err})
 	}
-	//todo.Title = updatedTodo.Title
-	//todo.Completed = updatedTodo.Completed
+	todo.Title = updatedTodo.Title
+	todo.Completed = updatedTodo.Completed
 	db.Save(&todo)
 	return c.JSON(&todo)
 }
