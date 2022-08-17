@@ -81,3 +81,5 @@ func DeleteTodo(c *fiber.Ctx) error {
 	db.Delete(&todo)
 	return c.SendStatus(200)
 }
+
+
